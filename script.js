@@ -1,290 +1,145 @@
-// ===============================
-// UNO DUEL LOCAL
-// SISTEMA DE PARTIDA
-// ===============================
-
-let jogadores = [
-    {
-        nome: "Douglas",
-        tipo: "developer",
-        cartas: []
-    },
-    {
-        nome: "Jogador",
-        tipo: "player",
-        cartas: []
-    }
-];
-
-let baralho = [];
-let descarte = [];
-let turno = 0;
+// =======================================
+// UNO DUEL - RENDER REALISTA DE CARTAS
+// =======================================
 
 
-// ===============================
-// CRIAR BARALHO UNO
-// ===============================
-
-function criarBaralho(){
-
-    const cores = [
-        "vermelho",
-        "azul",
-        "verde",
-        "amarelo"
-    ];
-
-    baralho = [];
-
-    cores.forEach(cor=>{
-
-        for(let i=0;i<=9;i++){
-
-            baralho.push({
-                cor:cor,
-                valor:i
-            });
-
-        }
-
-    });
+let mesa = document.getElementById("currentCard");
+let minhaMao = document.getElementById("playerCards");
 
 
-    // cartas extras simples
+// jogadores já existentes
+let jogadorAtual = 0;
 
-    for(let i=0;i<20;i++){
 
-        baralho.push({
-            cor:"preto",
-            valor:"+4"
-        });
+
+// =======================================
+// CRIAR CARTA VISUAL
+// =======================================
+
+function criarCartaVisual(carta, index, minhaCarta = false){
+
+
+    let div = document.createElement("div");
+
+
+    if(minhaCarta){
+
+        div.className = "handCard";
+
+    }else{
+
+        div.className = "card";
 
     }
 
 
-    embaralhar();
 
-}
+    // cor da carta
 
+    if(carta.cor){
 
+        div.classList.add(carta.cor);
 
-// ===============================
-// EMBARALHAR
-// ===============================
-
-function embaralhar(){
-
-    baralho.sort(()=>{
-        return Math.random()-0.5;
-    });
-
-}
+    }
 
 
 
-// ===============================
-// DISTRIBUIR CARTAS
-// ===============================
+    // conteúdo
 
-function distribuir(){
+    div.innerHTML = `
 
-    jogadores.forEach(jogador=>{
+        <span class="numeroCarta">
 
-        jogador.cartas=[];
+            ${carta.valor}
 
-        for(let i=0;i<7;i++){
+        </span>
 
-            jogador.cartas.push(
-                baralho.pop()
-            );
-
-        }
-
-    });
-
-
-    descarte.push(
-        baralho.pop()
-    );
-
-}
+    `;
 
 
 
-// ===============================
-// INICIAR PARTIDA
-// ===============================
+    // clique na carta
 
-function iniciarJogo(){
+    if(minhaCarta){
 
-    criarBaralho();
-
-    distribuir();
-
-    atualizarTela();
-
-}
-
-
-
-// ===============================
-// CARTA ATUAL
-// ===============================
-
-function cartaAtual(){
-
-    return descarte[
-        descarte.length-1
-    ];
-
-}
-
-// ===============================
-// MOSTRAR CARTAS DO DOUGLAS
-// ===============================
-
-function mostrarMinhaMao(){
-
-    let area =
-    document.getElementById("hand");
-
-
-    area.innerHTML="";
-
-
-    jogadores[0].cartas.forEach((carta,index)=>{
-
-
-        let div =
-        document.createElement("div");
-
-
-        div.className =
-        "handCard " + carta.cor;
-
-
-
-        div.innerHTML =
-        carta.valor;
-
-
-
-        div.onclick=function(){
+        div.onclick = function(){
 
             jogarCarta(index);
 
         };
 
+    }
 
 
-        area.appendChild(div);
+
+    return div;
+
+
+}
+
+
+
+
+
+// =======================================
+// MOSTRAR MINHAS CARTAS
+// =======================================
+
+
+function renderizarMinhaMao(){
+
+
+    if(!minhaMao) return;
+
+
+
+    minhaMao.innerHTML="";
+
+
+
+    jogadores[0].cartas.forEach((carta,index)=>{
+
+
+        let elemento =
+
+        criarCartaVisual(
+            carta,
+            index,
+            true
+        );
+
+
+
+        minhaMao.appendChild(elemento);
+
 
 
     });
 
 
-}
-
-
-
-// ===============================
-// ATUALIZAR TELA
-// ===============================
-
-function atualizarTela(){
-
-
-    let mesa =
-    cartaAtual();
-
-
-
-    document
-    .getElementById("currentCard")
-    .innerHTML =
-    mesa.valor;
-
-
-
-    document
-    .getElementById("myCount")
-    .innerHTML =
-    jogadores[0].cartas.length;
-
-
-
-    document
-    .getElementById("enemyCount")
-    .innerHTML =
-    jogadores[1].cartas.length;
-
-
-
-    document
-    .getElementById("turn")
-    .innerHTML =
-
-    "Turno: " +
-
-    jogadores[turno].nome;
-
-
-
-    document
-    .getElementById("currentCard")
-    .className =
-    "card " + mesa.cor;
-
-
-
-    mostrarMinhaMao();
-
 
 }
 
+// =======================================
+// MOSTRAR CARTA DA MESA
+// =======================================
 
 
-// ===============================
-// VALIDAR CARTA
-// ===============================
-
-function podeJogar(carta){
+function renderizarMesa(){
 
 
-    let atual =
-    cartaAtual();
+    mesa.innerHTML="";
 
 
+    let cartaAtual =
 
-    return (
-
-        carta.cor === atual.cor ||
-
-        carta.valor === atual.valor ||
-
-        carta.cor === "preto"
-
-    );
-
-
-}
+    descarte[
+        descarte.length - 1
+    ];
 
 
 
-
-// ===============================
-// JOGAR CARTA
-// ===============================
-
-function jogarCarta(index){
-
-
-
-    if(turno !== 0){
-
-        alert(
-        "Aguarde o adversário"
-        );
+    if(!cartaAtual){
 
         return;
 
@@ -293,55 +148,16 @@ function jogarCarta(index){
 
 
     let carta =
-    jogadores[0]
-    .cartas[index];
 
-
-
-    if(!podeJogar(carta)){
-
-
-        alert(
-        "Carta inválida"
-        );
-
-
-        return;
-
-
-    }
-
-
-
-    descarte.push(carta);
-
-
-
-    jogadores[0]
-    .cartas.splice(index,1);
-
-
-
-    verificarVitoria();
-
-
-
-    turno=1;
-
-
-
-    atualizarTela();
-
-
-
-    setTimeout(
-
-        jogadaComputador,
-
-        1000
-
+    criarCartaVisual(
+        cartaAtual,
+        0,
+        false
     );
 
+
+
+    mesa.appendChild(carta);
 
 
 }
@@ -349,15 +165,23 @@ function jogarCarta(index){
 
 
 
-// ===============================
-// COMPRAR CARTA
-// ===============================
-
-function comprarCarta(){
 
 
+// =======================================
+// MOSTRAR BARALHO
+// =======================================
 
-    if(baralho.length===0){
+
+function renderizarBaralho(){
+
+
+    let deck =
+
+    document.getElementById("deck");
+
+
+
+    if(!deck){
 
         return;
 
@@ -365,14 +189,46 @@ function comprarCarta(){
 
 
 
-    jogadores[0]
-    .cartas.push(
-        baralho.pop()
-    );
+    deck.innerHTML = `
+
+        <span>
+
+        UNO
+
+        </span>
+
+    `;
+
+
+    deck.className =
+    "card back";
 
 
 
-    atualizarTela();
+}
+
+
+
+
+
+
+// =======================================
+// ATUALIZAR TODA A MESA
+// =======================================
+
+
+function atualizarMesa(){
+
+
+
+    renderizarMesa();
+
+
+    renderizarMinhaMao();
+
+
+    renderizarBaralho();
+
 
 
 }
@@ -380,99 +236,51 @@ function comprarCarta(){
 
 
 
-// ===============================
-// VERIFICAR VITÓRIA
-// ===============================
-
-function verificarVitoria(){
 
 
-    if(
-    jogadores[0].cartas.length===0
-    ){
-
-        alert(
-        "🎉 Douglas venceu!"
-        );
+// =======================================
+// ORGANIZAR CARTAS EM LEQUE
+// =======================================
 
 
-    }
-
-
-
-}
-
-// ===============================
-// JOGADA DO COMPUTADOR
-// ===============================
-
-function jogadaComputador(){
+function organizarLeque(){
 
 
     let cartas =
-    jogadores[1].cartas;
 
-
-    let jogou = false;
-
-
-
-    for(let i=0;i<cartas.length;i++){
-
-
-        if(podeJogar(cartas[i])){
-
-
-            descarte.push(
-                cartas[i]
-            );
-
-
-            cartas.splice(i,1);
-
-
-            jogou=true;
-
-
-            break;
-
-
-        }
-
-
-    }
+    document.querySelectorAll(
+        ".handCard"
+    );
 
 
 
-
-    if(!jogou){
-
-
-        if(baralho.length>0){
+    cartas.forEach((carta,index)=>{
 
 
-            cartas.push(
-                baralho.pop()
-            );
+        let meio =
 
-
-        }
-
-
-    }
+        (cartas.length - 1) / 2;
 
 
 
+        let distancia =
 
-    verificarVitoriaComputador();
-
-
-
-    turno=0;
+        index - meio;
 
 
 
-    atualizarTela();
+        carta.style.transform =
+
+        `rotate(${distancia * 5}deg)
+        translateY(${Math.abs(distancia)*2}px)`;
+
+
+
+        carta.style.zIndex=index;
+
+
+
+    });
 
 
 
@@ -481,109 +289,29 @@ function jogadaComputador(){
 
 
 
-// ===============================
-// VITÓRIA COMPUTADOR
-// ===============================
-
-function verificarVitoriaComputador(){
 
 
-    if(
-    jogadores[1].cartas.length===0
-    ){
+// =======================================
+// ATUALIZAÇÃO AUTOMÁTICA DO LEQUE
+// =======================================
 
 
-        alert(
-        "😢 O Jogador venceu!"
-        );
+setInterval(()=>{
 
 
-        iniciarJogo();
+    organizarLeque();
 
 
-    }
+},500);
 
+// =======================================
+// INICIAR PARTIDA
+// =======================================
 
-}
-
-
-
-
-// ===============================
-// BOTÃO COMPRAR
-// ===============================
-
-document
-.getElementById("drawBtn")
-.onclick=function(){
-
-
-    if(turno!==0){
-
-
-        alert(
-        "Não é sua vez"
-        );
-
-
-        return;
-
-
-    }
-
-
-
-    comprarCarta();
-
-
-};
-
-
-
-
-// ===============================
-// BOTÃO UNO
-// ===============================
-
-document
-.getElementById("unoBtn")
-.onclick=function(){
-
-
-    if(
-    jogadores[0].cartas.length===1
-    ){
-
-
-        alert(
-        "🔥 UNO!"
-        );
-
-
-    }
-    else{
-
-
-        alert(
-        "Você ainda tem mais de uma carta"
-        );
-
-
-    }
-
-
-};
-
-
-
-
-// ===============================
-// BOTÃO INICIAR
-// ===============================
 
 document
 .getElementById("startBtn")
-.onclick=function(){
+.onclick = function(){
 
 
     document
@@ -601,4 +329,175 @@ document
     iniciarJogo();
 
 
+
+    atualizarMesa();
+
+
 };
+
+
+
+
+
+
+// =======================================
+// JOGAR CARTA COM ANIMAÇÃO
+// =======================================
+
+
+function jogarCarta(index){
+
+
+
+    let carta =
+
+    jogadores[0]
+    .cartas[index];
+
+
+
+    let atual =
+
+    descarte[
+        descarte.length-1
+    ];
+
+
+
+    if(
+
+        carta.cor !== atual.cor &&
+
+        carta.valor !== atual.valor &&
+
+        carta.cor !== "preto"
+
+    ){
+
+        alert(
+        "Carta inválida!"
+        );
+
+
+        return;
+
+    }
+
+
+
+
+    descarte.push(carta);
+
+
+
+    jogadores[0]
+    .cartas.splice(index,1);
+
+
+
+
+    atualizarMesa();
+
+
+
+
+
+    verificarVitoria();
+
+
+
+}
+
+
+
+
+
+
+// =======================================
+// COMPRAR CARTA
+// =======================================
+
+
+document
+.getElementById("drawBtn")
+.onclick=function(){
+
+
+
+    if(baralho.length > 0){
+
+
+        jogadores[0]
+        .cartas.push(
+            baralho.pop()
+        );
+
+
+
+        atualizarMesa();
+
+
+    }
+
+
+};
+
+
+
+
+
+
+// =======================================
+// BOTÃO UNO
+// =======================================
+
+
+document
+.getElementById("unoBtn")
+.onclick=function(){
+
+
+
+    if(
+    jogadores[0].cartas.length === 1
+    ){
+
+
+        alert(
+        "🔥 UNO!"
+        );
+
+
+    }
+    else{
+
+
+        alert(
+        "Você ainda não está no UNO"
+        );
+
+
+    }
+
+
+};
+
+
+
+
+
+
+// =======================================
+// EFEITO DE CARTA NOVA
+// =======================================
+
+
+function animarCarta(elemento){
+
+
+    elemento.classList.add(
+        "playingCard"
+    );
+
+
+}
