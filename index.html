@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>UNO DUEL ONLINE</title>
+<title>UNO DUEL</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -24,6 +24,10 @@ UNO <span>DUEL</span>
 </h1>
 
 
+
+<div id="menu">
+
+
 <h2>
 Teste Local
 </h2>
@@ -34,23 +38,112 @@ CRIAR PARTIDA
 </button>
 
 
+</div>
+
+
+
+
 
 <div id="game" class="hidden">
 
 
 <h2>
-Partida iniciada!
+Partida
 </h2>
 
 
-<p>
-🟨 Douglas (Developer)
-</p>
+
+<div class="players">
+
+<div class="player developer">
+
+🟨 Douglas
+
+<br>
+
+Cartas:
+<span id="myCount">
+0
+</span>
+
+</div>
 
 
-<p>
+<div class="player">
+
 🔴 Jogador
-</p>
+
+<br>
+
+Cartas:
+<span id="enemyCount">
+7
+</span>
+
+</div>
+
+
+</div>
+
+
+
+
+<h3 id="turn">
+Turno: Douglas
+</h3>
+
+
+
+
+<div class="table">
+
+
+<div id="deck" class="card back">
+
+UNO
+
+</div>
+
+
+
+<div id="currentCard" class="card">
+
+?
+
+</div>
+
+
+</div>
+
+
+
+
+<h3>
+Suas cartas
+</h3>
+
+
+
+<div id="hand">
+
+</div>
+
+
+
+<button id="drawBtn">
+
+Comprar Carta
+
+</button>
+
+
+
+<button id="unoBtn">
+
+UNO!
+
+</button>
+
 
 
 <div id="message">
@@ -58,10 +151,12 @@ Partida iniciada!
 </div>
 
 
+
 </div>
 
 
 </div>
+
 
 
 
