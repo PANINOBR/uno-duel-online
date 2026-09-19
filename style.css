@@ -1,98 +1,139 @@
+/* =================================
+   UNO DUEL - VISUAL REALISTA
+================================= */
+
 *{
     box-sizing:border-box;
+    margin:0;
+    padding:0;
     font-family:Arial, Helvetica, sans-serif;
 }
 
 
 body{
 
-    margin:0;
     min-height:100vh;
 
     background:
-    radial-gradient(circle,#08752f,#021b0b);
+    radial-gradient(
+        circle at center,
+        #1b6b45 0%,
+        #07351f 60%,
+        #02150c 100%
+    );
 
     color:white;
+
+    overflow-x:hidden;
+
+}
+
+
+
+/* CONTAINER PRINCIPAL */
+
+.container{
+
+    width:100%;
+    min-height:100vh;
 
     display:flex;
     justify-content:center;
     align-items:center;
 
-}
-
-
-
-.container{
-
-    width:95%;
-    max-width:700px;
-
-    background:rgba(0,0,0,.55);
-
-    padding:25px;
-
-    border-radius:25px;
-
-    text-align:center;
+    padding:20px;
 
 }
 
 
 
-h1{
+/* MESA */
 
-    font-size:50px;
+#game{
 
-}
+    position:relative;
 
+    width:100%;
+    max-width:900px;
 
-h1 span{
-
-    color:#ffd000;
-
-}
+    min-height:700px;
 
 
+    background:
 
-button{
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,.05),
+        transparent
+    ),
 
-    width:90%;
-
-    padding:16px;
-
-    margin:10px;
-
-    border:none;
-
-    border-radius:15px;
-
-    background:#ffd000;
-
-    color:#111;
-
-    font-size:20px;
-
-    font-weight:bold;
-
-}
+    #07552e;
 
 
+    border-radius:40px;
 
-.hidden{
 
-    display:none;
+    box-shadow:
+
+    inset 0 0 80px rgba(0,0,0,.7),
+    0 30px 80px rgba(0,0,0,.8);
+
+
+    border:
+
+    18px solid #5a3218;
+
+
+    overflow:hidden;
 
 }
 
+
+
+/* TEXTURA DO FELTRO */
+
+#game::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+
+    background-image:
+
+    radial-gradient(
+        rgba(255,255,255,.08) 1px,
+        transparent 1px
+    );
+
+
+    background-size:5px 5px;
+
+
+    opacity:.25;
+
+    pointer-events:none;
+
+}
+
+/* =================================
+   ÁREA DOS JOGADORES
+================================= */
 
 
 .players{
 
+    position:relative;
+
+    z-index:2;
+
     display:flex;
 
-    gap:15px;
+    justify-content:space-between;
 
-    justify-content:center;
+    padding:25px 40px;
 
 }
 
@@ -100,13 +141,31 @@ button{
 
 .player{
 
-    background:#06351b;
+    background:
 
-    padding:15px;
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.15),
+        rgba(0,0,0,.45)
+    );
 
-    border-radius:15px;
 
-    flex:1;
+    backdrop-filter:blur(5px);
+
+
+    padding:15px 25px;
+
+
+    border-radius:20px;
+
+
+    border:2px solid rgba(255,255,255,.2);
+
+
+    box-shadow:
+
+    0 15px 25px rgba(0,0,0,.5);
+
 
 }
 
@@ -114,33 +173,109 @@ button{
 
 .developer{
 
-    border:3px solid #ffd000;
+    border:
+
+    3px solid #ffd000;
+
+
+    box-shadow:
+
+    0 0 25px rgba(255,208,0,.6);
 
 }
 
 
 
+
+
+/* =================================
+   MESA CENTRAL
+================================= */
+
+
 .table{
+
+    position:relative;
+
+    z-index:2;
+
 
     display:flex;
 
     justify-content:center;
 
-    gap:30px;
+    align-items:center;
 
-    margin:30px;
+    gap:80px;
+
+
+    margin-top:60px;
+
 
 }
 
 
 
-.card{
 
-    width:100px;
+/* BARALHO */
 
-    height:150px;
+#deck{
+
+    position:relative;
+
+    transform:
+
+    rotate(-8deg);
+
+
+}
+
+
+
+#deck::after{
+
+    content:"";
+
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+
+    background:#111;
+
 
     border-radius:15px;
+
+
+    left:8px;
+
+    top:8px;
+
+
+    z-index:-1;
+
+
+}
+
+
+
+
+
+
+/* CARTAS */
+
+.card{
+
+    width:120px;
+
+    height:175px;
+
+
+    border-radius:18px;
+
 
     display:flex;
 
@@ -148,71 +283,95 @@ button{
 
     justify-content:center;
 
-    font-size:28px;
+
+    font-size:42px;
 
     font-weight:bold;
 
+
     color:white;
 
-    border:3px solid white;
+
+    border:5px solid white;
+
+
+    text-shadow:
+
+    0 3px 5px rgba(0,0,0,.6);
+
+
+
+    box-shadow:
+
+    0 20px 30px rgba(0,0,0,.7),
+
+
+    inset 0 0 20px rgba(255,255,255,.3);
+
+
+
+    transform:
+
+    perspective(600px)
+
+    rotateY(-5deg);
+
+
+
+    transition:.3s;
 
 }
+
+
+
+.card:hover{
+
+    transform:
+
+    perspective(600px)
+
+    translateY(-15px)
+
+    rotateY(0deg);
+
+}
+
+
 
 
 
 .back{
 
-    background:#111;
+    background:
+
+    linear-gradient(
+        135deg,
+        #111,
+        #333
+    );
+
 
     color:#ffd000;
 
-}
-
-
-
-#hand{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    justify-content:center;
-
-    gap:10px;
 
 }
 
 
 
-.handCard{
-
-    width:70px;
-
-    height:100px;
-
-    border-radius:12px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    border:3px solid white;
-
-    cursor:pointer;
-
-}
 
 
+
+/* CORES DAS CARTAS */
 
 .red{
 
-    background:#e60000;
+    background:
+
+    linear-gradient(
+        145deg,
+        #ff3030,
+        #850000
+    );
 
 }
 
@@ -220,7 +379,13 @@ button{
 
 .blue{
 
-    background:#0055ff;
+    background:
+
+    linear-gradient(
+        145deg,
+        #3b8cff,
+        #002d80
+    );
 
 }
 
@@ -228,7 +393,13 @@ button{
 
 .green{
 
-    background:#009933;
+    background:
+
+    linear-gradient(
+        145deg,
+        #20c86b,
+        #005522
+    );
 
 }
 
@@ -236,16 +407,326 @@ button{
 
 .yellow{
 
-    background:#ffd000;
+    background:
 
-    color:black;
+    linear-gradient(
+        145deg,
+        #ffe85c,
+
+/* =================================
+   MÃO DE CARTAS
+================================= */
+
+
+#hand{
+
+    position:relative;
+
+    z-index:3;
+
+
+    display:flex;
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    margin-top:40px;
+
+
+    padding:20px;
+
 
 }
 
 
 
-.black{
 
-    background:#111;
+.handCard{
+
+    width:90px;
+
+    height:130px;
+
+
+    border-radius:16px;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    font-size:28px;
+
+
+    font-weight:bold;
+
+
+    color:white;
+
+
+    border:4px solid white;
+
+
+    cursor:pointer;
+
+
+
+    box-shadow:
+
+    0 15px 25px rgba(0,0,0,.6);
+
+
+
+    transition:
+
+    .25s;
+
 
 }
+
+
+
+.handCard:hover{
+
+    transform:
+
+    translateY(-30px)
+
+    scale(1.08);
+
+
+    box-shadow:
+
+    0 30px 40px rgba(0,0,0,.8);
+
+}
+
+
+
+
+
+/* =================================
+   INDICADOR DE TURNO
+================================= */
+
+
+#turn{
+
+
+    margin-top:25px;
+
+
+    font-size:26px;
+
+
+    color:#ffd000;
+
+
+    text-shadow:
+
+    0 3px 10px black;
+
+
+}
+
+
+
+
+
+/* =================================
+   BOTÕES PREMIUM
+================================= */
+
+
+button{
+
+
+    position:relative;
+
+    z-index:5;
+
+
+    margin:10px;
+
+
+    padding:15px 30px;
+
+
+    border-radius:30px;
+
+
+    border:none;
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #ffe45c,
+        #d49b00
+    );
+
+
+    color:#111;
+
+
+    font-size:18px;
+
+
+    font-weight:bold;
+
+
+    cursor:pointer;
+
+
+
+    box-shadow:
+
+    0 10px 25px rgba(0,0,0,.5);
+
+
+
+    transition:.3s;
+
+
+}
+
+
+
+button:hover{
+
+
+    transform:
+
+    translateY(-5px);
+
+
+}
+
+
+
+
+
+/* =================================
+   ANIMAÇÃO CARTA JOGADA
+================================= */
+
+
+.playingCard{
+
+
+    animation:
+
+    jogarCarta .7s ease;
+
+
+}
+
+
+
+@keyframes jogarCarta{
+
+
+    0%{
+
+        transform:
+
+        translateY(150px)
+
+        scale(.5)
+
+        rotate(20deg);
+
+        opacity:0;
+
+    }
+
+
+
+    100%{
+
+        transform:
+
+        translateY(0)
+
+        scale(1)
+
+        rotate(0);
+
+        opacity:1;
+
+    }
+
+
+}
+
+
+
+
+
+
+/* =================================
+   RESPONSIVO CELULAR
+================================= */
+
+
+@media(max-width:600px){
+
+
+    #game{
+
+        min-height:600px;
+
+        border-width:10px;
+
+    }
+
+
+
+    .players{
+
+        padding:15px;
+
+    }
+
+
+
+    .card{
+
+        width:90px;
+
+        height:130px;
+
+        font-size:32px;
+
+    }
+
+
+
+    .handCard{
+
+        width:55px;
+
+        height:90px;
+
+        font-size:20px;
+
+    }
+
+
+
+    .table{
+
+        gap:30px;
+
+    }
+
+
+
+}        
