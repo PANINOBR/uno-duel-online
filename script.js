@@ -310,9 +310,8 @@ setInterval(()=>{
 
 
 document
-.getElementById("startBtn")
+.getElementById("createRoomBtn")
 .onclick = function(){
-
 
     document
     .getElementById("menu")
@@ -321,9 +320,8 @@ document
 
 
     document
-    .getElementById("game")
-    .classList.remove("hidden");
-
+.getElementById("room")
+.classList.remove("hidden");
 
 
     iniciarJogo();
