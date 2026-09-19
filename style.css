@@ -12,11 +12,11 @@ body{
     background:
     radial-gradient(circle,#08752f,#021b0b);
 
+    color:white;
+
     display:flex;
     justify-content:center;
     align-items:center;
-
-    color:white;
 
 }
 
@@ -24,14 +24,14 @@ body{
 
 .container{
 
-    width:90%;
-    max-width:500px;
+    width:95%;
+    max-width:700px;
 
-    background:rgba(0,0,0,.6);
+    background:rgba(0,0,0,.55);
 
-    padding:30px;
+    padding:25px;
 
-    border-radius:20px;
+    border-radius:25px;
 
     text-align:center;
 
@@ -41,7 +41,7 @@ body{
 
 h1{
 
-    font-size:45px;
+    font-size:50px;
 
 }
 
@@ -56,9 +56,11 @@ h1 span{
 
 button{
 
-    width:100%;
+    width:90%;
 
-    padding:18px;
+    padding:16px;
+
+    margin:10px;
 
     border:none;
 
@@ -66,19 +68,11 @@ button{
 
     background:#ffd000;
 
+    color:#111;
+
     font-size:20px;
 
     font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-
-
-button:hover{
-
-    transform:scale(1.05);
 
 }
 
@@ -92,14 +86,166 @@ button:hover{
 
 
 
-#game{
+.players{
 
-    margin-top:30px;
+    display:flex;
 
-    padding:20px;
+    gap:15px;
 
-    background:#073d1d;
+    justify-content:center;
+
+}
+
+
+
+.player{
+
+    background:#06351b;
+
+    padding:15px;
 
     border-radius:15px;
+
+    flex:1;
+
+}
+
+
+
+.developer{
+
+    border:3px solid #ffd000;
+
+}
+
+
+
+.table{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    margin:30px;
+
+}
+
+
+
+.card{
+
+    width:100px;
+
+    height:150px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:white;
+
+    border:3px solid white;
+
+}
+
+
+
+.back{
+
+    background:#111;
+
+    color:#ffd000;
+
+}
+
+
+
+#hand{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+
+
+.handCard{
+
+    width:70px;
+
+    height:100px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    border:3px solid white;
+
+    cursor:pointer;
+
+}
+
+
+
+.red{
+
+    background:#e60000;
+
+}
+
+
+
+.blue{
+
+    background:#0055ff;
+
+}
+
+
+
+.green{
+
+    background:#009933;
+
+}
+
+
+
+.yellow{
+
+    background:#ffd000;
+
+    color:black;
+
+}
+
+
+
+.black{
+
+    background:#111;
 
 }
