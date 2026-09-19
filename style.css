@@ -729,4 +729,38 @@ button:hover{
 
 
 
-}        
+}
+
+#playerCards{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-end;
+
+    min-height:160px;
+
+    gap:0;
+
+    margin-top:40px;
+
+    padding:20px;
+
+}
+
+
+
+#playerCards .handCard{
+
+    margin-left:-25px;
+
+}
+
+
+
+#playerCards .handCard:first-child{
+
+    margin-left:0;
+
+}
